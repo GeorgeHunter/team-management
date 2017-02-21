@@ -18,7 +18,6 @@ class CreateOpponentsTable extends Migration
             $table->string('name');
             $table->string('website_url');
             $table->integer('location_id');
-            $table->integer('match_id');
             $table->timestamps();
         });
     }

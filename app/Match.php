@@ -16,7 +16,7 @@ class Match extends Model
 
     public function opponent()
     {
-        return $this->hasOne('App\Opponent');
+        return $this->belongsTo('App\Opponent');
     }
 
     public function player()

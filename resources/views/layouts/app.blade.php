@@ -13,12 +13,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-
-
-
-
-
-
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -49,7 +43,10 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li><a href="/matches">Matches</a></li>
+                        <li><a href="/opponents">Opponents</a></li>
+                        <li><a href="/venues">Venues</a></li>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -122,17 +119,17 @@
                 };
             };
 
-            var people = ['George', 'Josh'
+            var opponents = ['Wincanton', 'Sturminster Marshall', 'Folke', 'Cannington', 'XX'
             ];
 
-            $('.typeahead#first_name').typeahead({
+            $('.typeahead#opponent').typeahead({
                     hint: true,
                     highlight: true,
                     minLength: 1
                 },
                 {
-                    name: 'people',
-                    source: substringMatcher(people)
+                    name: 'opponents',
+                    source: substringMatcher(opponents)
             });
 
 

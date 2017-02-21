@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Opponent extends Model
 {
-    public function venues()
+    public function venue()
     {
         return $this->hasOne('App\Venue');
     }
