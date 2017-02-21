@@ -15,7 +15,7 @@ class CreateVenuesTable extends Migration
     {
         Schema::create('venues', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('opponent_id');
+            $table->integer('opponent_id')->unsigned()->nullable();
             $table->string('name');
             $table->string('lat');
             $table->string('long');
