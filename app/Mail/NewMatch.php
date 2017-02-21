@@ -31,6 +31,6 @@ class NewMatch extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.new');
+        return $this->markdown('emails.new-match');
     }
 }

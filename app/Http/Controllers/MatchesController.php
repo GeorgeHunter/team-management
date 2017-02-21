@@ -80,9 +80,12 @@ class MatchesController extends Controller
     {
 
 
+
+
         $emails = $request->emails;
         $match_id = $request->match_id;
         $match = Match::find($match_id);
+
 //        $match = Match::find(1);
         foreach ($emails as $email) {
             \Mail::to($email)->send(new NewMatch($match));

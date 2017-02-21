@@ -14,7 +14,7 @@
 
                 <div class="checkbox">
                     <label for="{{ $player->id }}">
-                        <input type="checkbox" id="{{ $player->id }}" value="{{ $player->email }}" name="emails[]">
+                        <input type="checkbox" id="{{ $player->id }}" value="{{ $player->emailc }}" name="emails[]">
                         {{ $player->email }}
                     </label>
                 </div>
