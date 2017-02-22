@@ -79,21 +79,30 @@ class MatchesController extends Controller
     public function sendMail(Request $request)
     {
 
-
-
-
-        $emails = $request->emails;
+        $players = $request->players;
         $match_id = $request->match_id;
         $match = Match::find($match_id);
 
-//        $match = Match::find(1);
-        foreach ($emails as $email) {
+        $match->player()->sync($players);
+
+        foreach ($match->player as $player) {
+            if (in_array($player->id, $players)) {
+                echo $player->pivot->emailed = 1;
+                $player->pivot->save();
+            }
+        }
+
+        $email_to = [];
+        foreach ($players as $player) {
+            $player_obj = Player::find($player);
+            $player_email = $player_obj->email;
+            array_push($email_to, $player_email);
+        }
+
+        foreach ($email_to as $email) {
             \Mail::to($email)->send(new NewMatch($match));
         }
 
         return redirect('/matches');
-
     }
-
-
 }
