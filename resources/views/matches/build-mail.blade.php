@@ -4,29 +4,54 @@
 
     <div class="container">
 
+        @php($match_check = [])
+
+        @foreach($match->player as $player)
+            @if ( $player->pivot->emailed )
+{{--                {{ $player->first_name }}--}}
+                @php( array_push($match_check, $player->id))
+            @endif
+        @endforeach
+
+        {{--@php(dd($match_check))--}}
+
+        <h3>Select people to email</h3>
+
         <form method="POST" action="/matches/send/{{ $match->id }}">
 
             {{ csrf_field() }}
 
             <input type="text" hidden name="match_id" value="{{ $match->id }}">
 
-            @foreach($players as $player)
+            {{--@php(dd($match->player))--}}
 
+            @foreach($players as $player)
+                @if (! in_array($player->id, $match_check))
                 <div class="checkbox">
                     <label for="{{ $player->id }}">
                         <input type="checkbox" id="{{ $player->id }}" value="{{ $player->id }}" name="players[]">
                         {{ $player->email }}
                     </label>
                 </div>
-
+                @endif
             @endforeach
 
-            <button type="submit">Send!</button>
+            <button type="submit" class="btn btn-primary">Send!</button>
 
         </form>
 
+        <h3>Already Emailed</h3>
+
+
+        @foreach($match->player as $player)
+            @if ( $player->pivot->emailed )
+                {{ $player->first_name }}
+            @endif
+        @endforeach
 
 
     </div>
 
 @stop
+
+

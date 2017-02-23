@@ -65,7 +65,6 @@ class MatchesController extends Controller
             $match->pairing()->sync($pairings);
         }
 
-
         return redirect('matches/edit/' . $match->id);
 
     }
@@ -83,7 +82,7 @@ class MatchesController extends Controller
         $match_id = $request->match_id;
         $match = Match::find($match_id);
 
-        $match->player()->sync($players);
+        $match->player()->attach($players);
 
         foreach ($match->player as $player) {
             if (in_array($player->id, $players)) {
@@ -103,6 +102,16 @@ class MatchesController extends Controller
             \Mail::to($email)->send(new NewMatch($match));
         }
 
-        return redirect('/matches');
+        return redirect('/matches')->with('emails-sent', 'Emails have been sent!');
+
+    }
+
+    public function makePayment(Request $request)
+    {
+        $match_id = $request->match;
+
+        $pivot_table = $request->user()->player->match->where('id', $match_id)->first()->pivot;
+        $pivot_table->paid = 1;
+        $pivot_table->save();
     }
 }
