@@ -12,6 +12,7 @@
         @foreach ($matches as $match)
             <a href="/matches/{{ $match->id }}"><h3>{{ $match->opponent->name }}</h3></a>
             <p>{{ $match->venue }} | {{ $match->date_time }}</p>
+            <strong>{{ $match->response }}</strong>
             {{--<ul>--}}
                 {{--@foreach ($match->pairing as $pairing)--}}
                     {{--<li>{{ $pairing->group }}--}}

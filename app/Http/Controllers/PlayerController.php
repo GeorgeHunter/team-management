@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Match;
 
 class PlayerController extends Controller
 {
@@ -84,6 +85,9 @@ class PlayerController extends Controller
 
     public function receiveMail(Request $request)
     {
-        dd($request->recipient);
+        $match_update = new Match;
+        $match_update->response = $request->recipient;
+
+        return redirect('http://google.com');
     }
 }
