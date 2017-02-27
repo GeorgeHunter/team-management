@@ -84,6 +84,6 @@ class PlayerController extends Controller
 
     public function receiveMail(Request $request)
     {
-        dd($request);
+        dd($request->recipient);
     }
 }
