@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <form method="POST" action="/matches">
-            {{ csrf_field() }}
+{{--            {{ csrf_field() }}--}}
             <div class="form-group">
                 <label for="opponent">Opponent</label>
                 <input type="text" class="form-control typeahead" id="opponent" name="opponent" placeholder="Opponent">
