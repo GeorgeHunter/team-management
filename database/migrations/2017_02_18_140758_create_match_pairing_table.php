@@ -18,6 +18,8 @@ class CreateMatchPairingTable extends Migration
             $table->integer('match_id');
             $table->integer('pairing_id');
             $table->integer('points');
+            $table->integer('emailed');
+            $table->integer('available`');
             $table->timestamps();
         });
     }

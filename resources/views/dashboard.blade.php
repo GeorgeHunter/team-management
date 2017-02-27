@@ -16,12 +16,13 @@
                 <h3 class="panel-title">My Matches</h3>
             </div>
             <div class="panel-body">
-                <table>
+                <table class="table">
                     <tr style="font-weight: bold;">
                         <td style="padding: 6px;">Opponent</td>
                         <td>Date</td>
                         <td>Time</td>
                         <td>Paid</td>
+                        <td style="width: 100px;">I'm Available</td>
                     </tr>
                     @foreach( Auth::User()->player->match as $my_match)
                         <tr>
@@ -32,6 +33,17 @@
                                 @if ($my_match->pivot->paid ) tick @endif
                                 @if ( !$my_match->pivot->paid ) X @endif
 
+                            </td>
+                            <td style="width: 100px;">
+                                @if ($my_match->pivot->available == 1)
+                                <button class="btn btn-primary">
+                                    I'm Available
+                                </button>
+                                @else
+                                    <button class="btn btn-danger">
+                                        No longer availabe
+                                    </button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
