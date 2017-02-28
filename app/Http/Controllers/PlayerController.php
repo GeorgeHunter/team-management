@@ -159,10 +159,10 @@ class PlayerController extends Controller
     public function receiveMail ()
     {
 
-        $content = $request;
+        $content = $_POST['stripped_html'];
         $file = '/output.txt';
         file_put_contents($file, $content, LOCK_EX);
-
+//hi there
     }
 
 
