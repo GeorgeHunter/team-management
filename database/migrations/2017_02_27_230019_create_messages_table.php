@@ -17,7 +17,7 @@ class CreateMessagesTable extends Migration
             $table->increments('id');
             $table->string('from');
             $table->text('message');
-            $table->date('sent');
+            $table->date('sent')->nullable;
             $table->timestamps();
         });
     }
