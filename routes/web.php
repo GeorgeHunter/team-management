@@ -44,4 +44,5 @@ Route::get('/venues/create', 'VenuesController@create');
 Route::post('/venues', 'VenuesController@store');
 
 // Player
+Route::get('/messages', 'MessagesController@index');
 Route::post('/player', 'PlayerController@receiveMail');

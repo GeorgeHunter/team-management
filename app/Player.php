@@ -20,4 +20,9 @@ class Player extends Model
     {
         return $this->belongsToMany('App\Match')->withPivot('paid', 'emailed', 'available');
     }
+
+    public function messages()
+    {
+        return $this->hasMany('App\Message');
+    }
 }
