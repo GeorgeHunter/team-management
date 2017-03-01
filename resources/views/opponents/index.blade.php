@@ -4,28 +4,31 @@
 
     <div class="container">
 
-        <ul>
-        
+
         @foreach($opponents as $opponent)
 
-            <li>{{ $opponent->name }}</li>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ $opponent->name }}</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ $opponent->venue->name }} <br>
+                        Lat: <strong>{{ $opponent->venue->lat }}</strong> <br>
+                        Long: <strong>{{ $opponent->venue->long }}</strong> <br>
 
-            <ul>
-            @foreach($opponent->matches as $match)
+                    </div>
+                    <div class="panel-footer">
+                        <a href="{{ $opponent->venue->website_url }}"><div>View Website</div></a>
+                    </div>
 
-
-            <li>{{ $match }}</li>
-
-            @endforeach
-            <li>{{ $opponent->venue }}</li>
-
-            </ul>
+                </div>
 
             @endforeach
         
-        </ul>
 
-        <a href="/opponents/create" class="btn btn-primary">Add New</a>
+        @admin
+            <a href="/opponents/create" class="btn btn-primary">Add New</a>
+        @endadmin
 
     </div>
 

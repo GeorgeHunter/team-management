@@ -12,8 +12,9 @@
         @endforeach
         </ul>
 
-        <a href="/venues/create" class="btn btn-primary">Add New</a>
-
+        @admin
+            <a href="/venues/create" class="btn btn-primary">Add New</a>
+        @endadmin
     </div>
 
 @stop

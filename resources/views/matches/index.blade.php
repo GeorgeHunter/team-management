@@ -8,23 +8,89 @@
                 {{ session('emails-sent') }}
             </div>
         @endif
-        <p>Matches this season</p>
+        <p>Upcoming Matches</p>
         @foreach ($matches as $match)
-            <a href="/matches/{{ $match->id }}"><h3>{{ $match->opponent->name }}</h3></a>
-            <p>{{ $match->venue }} | {{ $match->date_time }}</p>
-            <strong>{{ $match->response }}</strong>
-            {{--<ul>--}}
-                {{--@foreach ($match->pairing as $pairing)--}}
-                    {{--<li>{{ $pairing->group }}--}}
-                        {{--<ul>--}}
-                            {{--@foreach ($pairing->player as $player)--}}
-                                {{--<li>{{ $player->first_name }} {{ $player->last_name }} | {{ $player->handicap }}</li>--}}
-                            {{--@endforeach--}}
-                        {{--</ul>--}}
-                    {{--</li>--}}
-                {{--@endforeach--}}
-            {{--</ul>--}}
+
+            @if ($match->date_time < $now)
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ $match->opponent->name }}</h3>
+                </div>
+                <div class="panel-body">
+                    <p>{{ $match->venue }} | {{ $match->date_time }}</p>
+                    <strong>{{ $match->response }}</strong>
+                    Team:
+
+                    <ul>
+                        @foreach ($match->player as $player)
+
+                            <li>{{ $player->first_name }}</li>
+
+                        @endforeach
+                    </ul>
+
+
+                    {{--<ul>--}}
+                        {{--@foreach ($match->pairing as $pairing)--}}
+                            {{--<li>Group Number: {{ $pairing->group }}--}}
+                                {{--<ul>--}}
+                                    {{--@foreach ($pairing->player as $player)--}}
+                                        {{--<li>{{ $player->first_name }} {{ $player->last_name }} | {{ $player->handicap }}</li>--}}
+                                    {{--@endforeach--}}
+                                {{--</ul>--}}
+                            {{--</li>--}}
+                        {{--@endforeach--}}
+                    {{--</ul>--}}
+
+                </div>
+                {{--<div class="panel-footer">--}}
+                    {{--<a href="{{ $opponent->venue->website_url }}"><div>View Website</div></a>--}}
+                {{--</div>--}}
+
+            </div>
+
+            @endif
+
         @endforeach
+
+
+
+            <p>Results</p>
+            @foreach ($matches as $match)
+
+                @if ($match->date_time > $now)
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ $match->opponent->name }}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>{{ $match->venue }} | {{ $match->date_time }}</p>
+                            <strong>{{ $match->response }}</strong>
+                            Team:
+                            <ul>
+                                @foreach ($match->pairing as $pairing)
+                                    <li>Group Number: {{ $pairing->group }} | {{ $pairing->pivot->points  }} Points
+                                        <ul>
+                                            @foreach ($pairing->player as $player)
+                                                <li>{{ $player->first_name }} {{ $player->last_name }} | {{ $player->handicap }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endforeach
+                            </ul>
+
+                        </div>
+                        {{--<div class="panel-footer">--}}
+                        {{--<a href="{{ $opponent->venue->website_url }}"><div>View Website</div></a>--}}
+                        {{--</div>--}}
+
+                    </div>
+
+                @endif
+
+            @endforeach
 
         @admin
             <a href="/matches/create" class="btn btn-primary">

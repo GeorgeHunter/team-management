@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+{{--    <link href="{{ asset('css/custom.min.css') }}" rel="stylesheet">--}}
 
     <!-- Scripts -->
     <script>
@@ -43,9 +44,22 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a href="/matches">Matches</a></li>
-                        <li><a href="/opponents">Opponents</a></li>
-                        <li><a href="/venues">Venues</a></li>
+                        <li {{ (Request::is('matches') ? 'class=active' : '') }}>
+                            <a href="/matches">Matches</a>
+                        </li>
+                        <li {{ (Request::is('opponents') ? 'class=active' : '') }}>
+                            <a href="/opponents">Opponents</a>
+                        </li>
+                        @if (Auth::user())
+                            <li {{ (Request::is('pairings') ? 'class=active' : '') }}>
+                                <a href="/pairings">Pairings</a>
+                            </li>
+                        @endif
+                        @admin
+                            <li {{ (Request::is('messages') ? 'class=active' : '') }}>
+                                <a href="/messages">Messages</a>
+                            </li>
+                        @endadmin
 
                     </ul>
 

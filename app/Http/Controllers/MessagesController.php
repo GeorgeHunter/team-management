@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Player;
 use Illuminate\Http\Request;
 use App\Message;
 
@@ -15,8 +16,9 @@ class MessagesController extends Controller
     public function index()
     {
         $messages = Message::all();
+        $players = Player::all();
 
-        return view('messages/index', compact('messages'));
+        return view('messages/index', compact('messages', 'players'));
     }
 
     /**
@@ -84,4 +86,18 @@ class MessagesController extends Controller
     {
         //
     }
+
+    public function receiveMail ()
+    {
+
+        $message = new Message;
+
+        $message->from = $_POST['From'];
+        $message->body = $_POST['stripped-html'];
+        $message->sent = $_POST['timestamp'];
+        $message->subject = $_POST['Subject'];
+
+        $message->save();
+    }
+
 }

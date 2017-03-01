@@ -45,4 +45,4 @@ Route::post('/venues', 'VenuesController@store');
 
 // Player
 Route::get('/messages', 'MessagesController@index');
-Route::post('/player', 'PlayerController@receiveMail');
+Route::post('/receive-mail', 'MessagesController@receiveMail');

@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 use App\Match;
 use App\Pairing;
 use App\Mail\NewMatch;
+use Carbon\Carbon;
 
 class MatchesController extends Controller
 {
     public function index()
     {
         $matches = Match::get();
-        return view('matches/index', compact('matches'));
+        $now = Carbon::now();
+        return view('matches/index', compact('matches', 'now'));
     }
 
     public function create()
@@ -30,7 +32,6 @@ class MatchesController extends Controller
         $match->opponent_id = 1;
         $match->venue = request('venue');
         $match->date_time = request('date_time');
-//        dd($match);
 
         $match->save();
 
