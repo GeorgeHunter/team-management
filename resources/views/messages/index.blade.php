@@ -17,17 +17,21 @@
 
         <div class="tab-content">
             <div id="byDate" class="tab-pane fade in active">
-                @foreach ($messages as $message)
+                @if (count($messages))
+                    @foreach ($messages as $message)
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading bg-primary">{{ $message->from }} <span class="pull-right">Date</span></div>
-                        <div class="panel-body">
-                            <p><strong>Message Subject here!!</strong></p>
-                            {!! $message->message !!}
+                        <div class="panel panel-default">
+                            <div class="panel-heading bg-primary">{{ $message->from }} <span class="pull-right">Date</span></div>
+                            <div class="panel-body">
+                                <p><strong>Message Subject here!!</strong></p>
+                                {!! $message->message !!}
+                            </div>
                         </div>
-                    </div>
 
-                @endforeach
+                    @endforeach
+                @else
+                    <p>No messages received yet</p>
+                @endif
             </div>
             <div id="byPlayer" class="tab-pane fade">
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -44,11 +48,16 @@
                             </div>
                             <div id="collapse{{ $player->id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                                 <div class="panel-body">
-                                    @foreach($player->messages as $message)
+                                    @if (count($player->messages))
+                                        @foreach($player->messages as $message)
 
-                                        <p>{{ $message->message }}</p>
+                                            <p>{{ $message->message }}</p>
 
-                                    @endforeach
+                                        @endforeach
+                                    @else
+                                        <p>No messages from {{ $player->first_name }} yet</p>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>

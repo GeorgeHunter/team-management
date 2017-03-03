@@ -11,18 +11,18 @@
         <p>Upcoming Matches</p>
         @foreach ($matches as $match)
 
-            @if ($match->date_time < $now)
+            @if ($match->date_time > $now)
 
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">{{ $match->opponent->name }}</h3>
                 </div>
                 <div class="panel-body">
-                    <p>{{ $match->venue }} | {{ $match->date_time }}</p>
+                    <p><span style="text-transform: capitalize;">{{ $match->venue }}</span> | {{ $match->date_time }}</p>
                     <strong>{{ $match->response }}</strong>
 
-                    @if (!empty ($match->player))
-                    Team:
+                    <p>Team:</p>
+                    @if (count ($match->player))
 
                         <ul>
                             @foreach ($match->player as $player)
@@ -34,7 +34,7 @@
                     @else
                         No Players Added Yet
                     @endif
-=
+
                 </div>
 
             </div>
@@ -48,7 +48,7 @@
             <p>Results</p>
             @foreach ($matches as $match)
 
-                @if ($match->date_time > $now)
+                @if ($match->date_time < $now)
 
                     <div class="panel panel-primary">
                         <div class="panel-heading">
@@ -56,8 +56,8 @@
                         </div>
                         <div class="panel-body">
                             <p>{{ $match->venue }} | {{ $match->date_time }}</p>
-                            @if (!empty($match->pairing))
-                            Team:
+                            @if (count($match->pairing))
+                            <p>Team:</p>
                                 <ul>
                                     @foreach ($match->pairing as $pairing)
                                         <li>Group Number: {{ $pairing->group }} | {{ $pairing->pivot->points  }} Points
@@ -75,7 +75,7 @@
 
                         </div>
                         <div class="panel-footer">
-                        <a href="{{ $match->opponent->venue->website_url }}"><div>View Website</div></a>
+                        <a target="_blank" href="{{ $match->opponent->venue->website_url }}"><div>View Website</div></a>
                         </div>
 
                     </div>

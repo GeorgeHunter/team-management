@@ -5,8 +5,12 @@
         <form method="POST" action="/matches">
 {{--            {{ csrf_field() }}--}}
             <div class="form-group">
-                <label for="opponent">Opponent</label>
-                <input type="text" class="form-control typeahead" id="opponent" name="opponent" placeholder="Opponent">
+                <label for="opponent_id">Opponent</label>
+                <select name="opponent_id" id="opponent_id" class="form-control">
+                    @foreach ($opponents as $opponent)
+                        <option value="{{ $opponent->id }}">{{ $opponent->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="venue">Home/ Away</label>

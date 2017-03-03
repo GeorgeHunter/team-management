@@ -35,8 +35,8 @@
             </div>
 
             <div class="form-group">
-                <label for="url">Website URL</label>
-                <input type="text" class="form-control typeahead" id="url" name="url" placeholder="URL">
+                <label for="website_url">Website URL</label>
+                <input type="text" class="form-control typeahead" id="website_url" name="website_url" placeholder="URL">
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>

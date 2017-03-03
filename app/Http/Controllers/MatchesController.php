@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Opponent;
 use App\Player;
 use Illuminate\Http\Request;
 use App\Match;
@@ -22,14 +23,15 @@ class MatchesController extends Controller
     {
         $matches = Match::get();
         $pairings = Pairing::get();
-        return view('matches/create', compact('matches', 'pairings'));
+        $opponents = Opponent::get();
+        return view('matches/create', compact('matches', 'pairings', 'opponents'));
     }
 
     public function store()
     {
         $match = new Match;
 
-        $match->opponent_id = 1;
+        $match->opponent_id = request('opponent_id');
         $match->venue = request('venue');
         $match->date_time = request('date_time');
 
