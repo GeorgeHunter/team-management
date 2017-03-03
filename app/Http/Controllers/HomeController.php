@@ -26,9 +26,14 @@ class HomeController extends Controller
     {
         $now = Carbon::now(); // For comparison purposes in the view
 
-        $user_pairings = \Auth::User()->player->pairing;
+        if (!empty(\Auth::User()->player)) {
+            $user_pairings = \Auth::User()->player->pairing;
+            return view('home', compact('now', 'user_pairings'));
+        } else {
 
-        return view('home', compact('now', 'user_pairings'));
+            return view('home', compact('now'));
+        }
+
     }
 
     public function dashboard()

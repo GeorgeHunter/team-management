@@ -12,15 +12,20 @@
                         <h3 class="panel-title">{{ $opponent->name }}</h3>
                     </div>
                     <div class="panel-body">
-                        {{ $opponent->venue->name }} <br>
-                        Lat: <strong>{{ $opponent->venue->lat }}</strong> <br>
-                        Long: <strong>{{ $opponent->venue->long }}</strong> <br>
+                        @if (!empty ($opponent->venue))
+                                {{ $opponent->venue->name }} <br>
+                                Lat: <strong>{{ $opponent->venue->lat }}</strong> <br>
+                                Long: <strong>{{ $opponent->venue->long }}</strong> <br>
+                            </div>
 
-                    </div>
-                    <div class="panel-footer">
-                        <a href="{{ $opponent->venue->website_url }}"><div>View Website</div></a>
-                    </div>
+                            <div class="panel-footer">
+                                <a href="{{ $opponent->venue->website_url }}"><div>View Website</div></a>
 
+
+                        @else
+                            No Venue Details Added Yet
+                        @endif
+                    </div>
                 </div>
 
             @endforeach

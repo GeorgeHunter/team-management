@@ -20,33 +20,22 @@
                 <div class="panel-body">
                     <p>{{ $match->venue }} | {{ $match->date_time }}</p>
                     <strong>{{ $match->response }}</strong>
+
+                    @if (!empty ($match->player))
                     Team:
 
-                    <ul>
-                        @foreach ($match->player as $player)
+                        <ul>
+                            @foreach ($match->player as $player)
 
-                            <li>{{ $player->first_name }}</li>
+                                <li>{{ $player->first_name }}</li>
 
-                        @endforeach
-                    </ul>
-
-
-                    {{--<ul>--}}
-                        {{--@foreach ($match->pairing as $pairing)--}}
-                            {{--<li>Group Number: {{ $pairing->group }}--}}
-                                {{--<ul>--}}
-                                    {{--@foreach ($pairing->player as $player)--}}
-                                        {{--<li>{{ $player->first_name }} {{ $player->last_name }} | {{ $player->handicap }}</li>--}}
-                                    {{--@endforeach--}}
-                                {{--</ul>--}}
-                            {{--</li>--}}
-                        {{--@endforeach--}}
-                    {{--</ul>--}}
-
+                            @endforeach
+                        </ul>
+                    @else
+                        No Players Added Yet
+                    @endif
+=
                 </div>
-                {{--<div class="panel-footer">--}}
-                    {{--<a href="{{ $opponent->venue->website_url }}"><div>View Website</div></a>--}}
-                {{--</div>--}}
 
             </div>
 
@@ -67,24 +56,27 @@
                         </div>
                         <div class="panel-body">
                             <p>{{ $match->venue }} | {{ $match->date_time }}</p>
-                            <strong>{{ $match->response }}</strong>
+                            @if (!empty($match->pairing))
                             Team:
-                            <ul>
-                                @foreach ($match->pairing as $pairing)
-                                    <li>Group Number: {{ $pairing->group }} | {{ $pairing->pivot->points  }} Points
-                                        <ul>
-                                            @foreach ($pairing->player as $player)
-                                                <li>{{ $player->first_name }} {{ $player->last_name }} | {{ $player->handicap }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                @endforeach
-                            </ul>
+                                <ul>
+                                    @foreach ($match->pairing as $pairing)
+                                        <li>Group Number: {{ $pairing->group }} | {{ $pairing->pivot->points  }} Points
+                                            <ul>
+                                                @foreach ($pairing->player as $player)
+                                                    <li>{{ $player->first_name }} {{ $player->last_name }} | {{ $player->handicap }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                No Pairings Added Yet
+                            @endif
 
                         </div>
-                        {{--<div class="panel-footer">--}}
-                        {{--<a href="{{ $opponent->venue->website_url }}"><div>View Website</div></a>--}}
-                        {{--</div>--}}
+                        <div class="panel-footer">
+                        <a href="{{ $match->opponent->venue->website_url }}"><div>View Website</div></a>
+                        </div>
 
                     </div>
 

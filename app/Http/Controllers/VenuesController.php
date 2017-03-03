@@ -46,6 +46,7 @@ class VenuesController extends Controller
         $venue->name = request('name');
         $venue->lat = request('lat');
         $venue->long= request('long');
+//        $venue->website_url= request('website_url');
 
         $venue->save();
 

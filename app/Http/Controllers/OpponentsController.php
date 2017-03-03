@@ -43,13 +43,13 @@ class OpponentsController extends Controller
         $opponent = new Opponent;
 
         $opponent->name = request('name');
-        $opponent->website_url = request('url');
-        $opponent->location_id = request('venue');
+//        $opponent->website_url = request('url');
+//        $opponent->location_id = request('venue');
 //        $opponent->match_id = 1;
 
         $opponent->save();
 
-        \Mail::to('georg.io@hotmail.co.uk')->send(new NewMatch);
+//        \Mail::to('georg.io@hotmail.co.uk')->send(new NewMatch);
 
         return redirect('/dashboard');
     }

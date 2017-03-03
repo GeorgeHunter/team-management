@@ -34,10 +34,15 @@
                 <input type="text" class="form-control typeahead" id="long" name="long" placeholder="Longitude">
             </div>
 
+            <div class="form-group">
+                <label for="url">Website URL</label>
+                <input type="text" class="form-control typeahead" id="url" name="url" placeholder="URL">
+            </div>
+
             <button type="submit" class="btn btn-primary">Submit</button>
 
-        </form>
+</form>
 
-    </div>
+</div>
 
 @stop

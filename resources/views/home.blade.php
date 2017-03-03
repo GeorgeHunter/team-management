@@ -15,23 +15,29 @@
                         <input type="text" class="form-control typeahead" id="first_name" placeholder="First Name">
                     </div>
 
-                    <h3>Upcoming Matches</h3>
 
-                    @foreach( $user_pairings as $pairing)
-                        @foreach ($pairing->matches as $match)
-                            @if ($now < $match->date_time)
-                            <p>{{ $match->opponent->name }} | {{ $match->venue }} | {{ $match->date_time->format('d M Y') }}</p>
-                            @endif
-                        @endforeach
 
-                        <h3>Matches You've Played In</h3>
-
-                        @foreach ($pairing->matches as $match)
-                            @if ($now > $match->date_time)
+                    <h3>Your Matches</h3>
+                    @if (isset($user_pairings))
+                        <h4>Upcoming Matches</h4>
+                        @foreach( $user_pairings as $pairing)
+                            @foreach ($pairing->matches as $match)
+                                @if ($now < $match->date_time)
                                 <p>{{ $match->opponent->name }} | {{ $match->venue }} | {{ $match->date_time->format('d M Y') }}</p>
-                            @endif
+                                @endif
+                            @endforeach
+
+                            <h4>Matches You've Played In</h4>
+
+                            @foreach ($pairing->matches as $match)
+                                @if ($now > $match->date_time)
+                                    <p>{{ $match->opponent->name }} | {{ $match->venue }} | {{ $match->date_time->format('d M Y') }}</p>
+                                @endif
+                            @endforeach
                         @endforeach
-                    @endforeach
+                    @else
+                        <p>You haven't played in, or signed up for, any matches yet</p>
+                    @endif
 
                 </div>
 

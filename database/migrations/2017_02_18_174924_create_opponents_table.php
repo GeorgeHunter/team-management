@@ -16,7 +16,6 @@ class CreateOpponentsTable extends Migration
         Schema::create('opponents', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('website_url');
             $table->integer('location_id')->unsigned()->nullable();
             $table->timestamps();
         });

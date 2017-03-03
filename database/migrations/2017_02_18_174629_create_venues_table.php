@@ -19,6 +19,7 @@ class CreateVenuesTable extends Migration
             $table->string('name');
             $table->string('lat');
             $table->string('long');
+            $table->string('website_url');
             $table->timestamps();
         });
     }

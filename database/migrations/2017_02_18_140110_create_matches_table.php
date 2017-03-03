@@ -18,7 +18,6 @@ class CreateMatchesTable extends Migration
             $table->integer('opponent_id');
             $table->string('venue');
             $table->dateTime('date_time');
-            $table->string('response');
         });
     }
 
