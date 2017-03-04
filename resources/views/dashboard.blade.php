@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container mt-4">
 
 
 
@@ -16,11 +16,11 @@
             </style>
 
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
+            <div class="card">
+                <div class="card-header">
                     <h3 class="panel-title">My Matches</h3>
                 </div>
-                <div class="panel-body">
+                <div class="card-block">
 
                         @if (!empty($user->player->match))
                         <table class="table">

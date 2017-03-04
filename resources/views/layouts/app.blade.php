@@ -23,54 +23,74 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-inverse navbar-static-top">
+
+
+        <nav class="navbar navbar-toggleable-md navbar-inverse bg-danger">
             <div class="container">
-                <div class="navbar-header">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="/">{{ config('app.name') }}</a>
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        <li {{ (Request::is('matches') ? 'class=active' : '') }}>
-                            <a href="/matches">Matches</a>
+                    <ul class="navbar-nav ml-0">
+                        <li class="nav-item {{ (Request::is('matches') ? 'active' : '') }}">
+                            <a class="nav-link" href="/matches">Matches</a>
                         </li>
-                        <li {{ (Request::is('opponents') ? 'class=active' : '') }}>
-                            <a href="/opponents">Opponents</a>
+                        <li class="nav-item {{ (Request::is('opponents') ? 'active' : '') }}">
+                            <a class="nav-link" href="/opponents">Opponents</a>
                         </li>
                         @if (Auth::user())
-                            <li {{ (Request::is('pairings') ? 'class=active' : '') }}>
-                                <a href="/pairings">Pairings</a>
+                            <li class="nav-item {{ (Request::is('pairings') ? 'active' : '') }}">
+                                <a class="nav-link" href="/pairings">Pairings</a>
                             </li>
                         @endif
                         @admin
-                            <li {{ (Request::is('messages') ? 'class=active' : '') }}>
-                                <a href="/messages">Messages</a>
-                            </li>
+                        <li class="nav-item {{ (Request::is('messages') ? 'active' : '') }}">
+                            <a class="nav-link" href="/messages">Messages</a>
+                        </li>
                         @endadmin
 
                     </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="navbar-nav mr-0 ml-auto">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                         @else
-                            <li class="dropdown">
+
+
+                            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{ Auth::user()->name }} <span class="caret"></span>
+                                        </a>
+                                        <div class="dropdown-menu p-0" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item list-group-item" href="/dashboard">
+                                                <i class="fa fa-th fa-fw mr-2"></i> Dashboard
+                                            </a>
+                                            <a class="dropdown-item list-group-item justify-content-between" href="/messages">
+                                                Messages
+                                                <span class="badge badge-default badge-pill">1</span>
+                                            </a>
+                                            {{--onclick="event.preventDefault(); document.getElementById('logout-form').submit();"--}}
+                                            <a class="dropdown-item list-group-item" href="{{ route('logout') }}">
+                                                <i class="fa fa-sign-out fa-fw mr-2"></i> Logout
+                                            </a>
+
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+
+                            <li class="dropdown" style="display: none;">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
@@ -78,8 +98,7 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
                                         <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                            >
                                             Logout
                                         </a>
 
@@ -96,6 +115,9 @@
                             </li>
                         @endif
                     </ul>
+
+
+
                 </div>
             </div>
         </nav>
@@ -107,7 +129,7 @@
 
 
     <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.min.js"></script>
 
     <script>

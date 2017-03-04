@@ -2,23 +2,23 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container mt-4">
 
 
         @foreach($opponents as $opponent)
 
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{{ $opponent->name }}</h3>
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h6 class="panel-title mb-0">{{ $opponent->name }}</h6>
                     </div>
-                    <div class="panel-body">
+                    <div class="card-block">
                         @if (!empty ($opponent->venue))
                                 {{ $opponent->venue->name }} <br>
                                 Lat: <strong>{{ $opponent->venue->lat }}</strong> <br>
                                 Long: <strong>{{ $opponent->venue->long }}</strong> <br>
                             </div>
 
-                            <div class="panel-footer">
+                            <div class="card-footer">
                                 <a href="{{ $opponent->venue->website_url }}"><div>View Website</div></a>
 
 
@@ -29,7 +29,7 @@
                 </div>
 
             @endforeach
-        
+
 
         @admin
             <a href="/opponents/create" class="btn btn-primary">Add New</a>

@@ -4,68 +4,70 @@
 
     <div class="container padding">
 
-        {{--{{ $messages }}--}}
+        {{ $messages }}
 
-        <ul class="nav nav-tabs nav-justified" style="margin-bottom: 12px;">
-            <li class="active">
-                <a data-toggle="tab" href="#byDate">Sort by Date</a>
-            </li>
-            <li>
-                <a data-toggle="tab" href="#byPlayer">Sort by Player</a>
-            </li>
-        </ul>
+        <input type="file" accept="image/*" capture="camera">
 
-        <div class="tab-content">
-            <div id="byDate" class="tab-pane fade in active">
-                @if (count($messages))
-                    @foreach ($messages as $message)
+        {{--<ul class="nav nav-tabs nav-justified" style="margin-bottom: 12px;">--}}
+            {{--<li class="active">--}}
+                {{--<a data-toggle="tab" href="#byDate">Sort by Date</a>--}}
+            {{--</li>--}}
+            {{--<li>--}}
+                {{--<a data-toggle="tab" href="#byPlayer">Sort by Player</a>--}}
+            {{--</li>--}}
+        {{--</ul>--}}
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading bg-primary">{{ $message->from }} <span class="pull-right">Date</span></div>
-                            <div class="panel-body">
-                                <p><strong>Message Subject here!!</strong></p>
-                                {!! $message->message !!}
-                            </div>
-                        </div>
+        {{--<div class="tab-content">--}}
+            {{--<div id="byDate" class="tab-pane fade in active">--}}
+                {{--@if (count($messages))--}}
+                    {{--@foreach ($messages as $message)--}}
 
-                    @endforeach
-                @else
-                    <p>No messages received yet</p>
-                @endif
-            </div>
-            <div id="byPlayer" class="tab-pane fade">
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        {{--<div class="panel panel-default">--}}
+                            {{--<div class="panel-heading bg-primary">{{ $message->from }} <span class="pull-right">Date</span></div>--}}
+                            {{--<div class="panel-body">--}}
+                                {{--<p><strong>Message Subject here!!</strong></p>--}}
+                                {{--{!! $message->message !!}--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
-                    @foreach($players as $player)
+                    {{--@endforeach--}}
+                {{--@else--}}
+                    {{--<p>No messages received yet</p>--}}
+                {{--@endif--}}
+            {{--</div>--}}
+            {{--<div id="byPlayer" class="tab-pane fade">--}}
+                {{--<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">--}}
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingOne">
-                                <h4 class="panel-title">
-                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $player->id }}" aria-expanded="true" aria-controls="collapseOne">
-                                        {{ $player->first_name }} {{ $player->last_name }}
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapse{{ $player->id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                                <div class="panel-body">
-                                    @if (count($player->messages))
-                                        @foreach($player->messages as $message)
+                    {{--@foreach($players as $player)--}}
 
-                                            <p>{{ $message->message }}</p>
+                        {{--<div class="panel panel-default">--}}
+                            {{--<div class="panel-heading" role="tab" id="headingOne">--}}
+                                {{--<h4 class="panel-title">--}}
+                                    {{--<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $player->id }}" aria-expanded="true" aria-controls="collapseOne">--}}
+                                        {{--{{ $player->first_name }} {{ $player->last_name }}--}}
+                                    {{--</a>--}}
+                                {{--</h4>--}}
+                            {{--</div>--}}
+                            {{--<div id="collapse{{ $player->id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">--}}
+                                {{--<div class="panel-body">--}}
+                                    {{--@if (count($player->messages))--}}
+                                        {{--@foreach($player->messages as $message)--}}
 
-                                        @endforeach
-                                    @else
-                                        <p>No messages from {{ $player->first_name }} yet</p>
-                                    @endif
+                                            {{--<p>{{ $message->message }}</p>--}}
 
-                                </div>
-                            </div>
-                        </div>
+                                        {{--@endforeach--}}
+                                    {{--@else--}}
+                                        {{--<p>No messages from {{ $player->first_name }} yet</p>--}}
+                                    {{--@endif--}}
 
-                    @endforeach
-                </div>
-            </div>
-        </div>
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+
+                    {{--@endforeach--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
 
 
 
