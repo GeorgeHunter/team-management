@@ -17,7 +17,10 @@ class CreateMatchPlayerTable extends Migration
             $table->increments('id');
             $table->integer('match_id');
             $table->integer('player_id');
-            $table->integer('paid');
+            $table->integer('emailed')->nullable();
+            $table->integer('available')->nullable();
+            $table->integer('not_available')->nullable();
+            $table->integer('paid')->nullable();
             $table->timestamps();
         });
     }
