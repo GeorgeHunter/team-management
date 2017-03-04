@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+<img src="/images/home-banner.jpg" class="banner__img" style="margin-top: -44px;">
+    
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">

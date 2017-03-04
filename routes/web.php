@@ -11,10 +11,11 @@
 |
 */
 
-Auth::routes();
 
+Route::get('/dashboard', 'HomeController@dashboard')->middleware('auth');;
 Route::get('/', 'HomeController@index');
-Route::get('/dashboard', 'HomeController@dashboard');
+
+Auth::routes();
 
 Route::get('/pairings', 'PairingsController@index');
 
