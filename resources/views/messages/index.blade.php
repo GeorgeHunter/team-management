@@ -6,7 +6,7 @@
 
         {{ $messages }}
 
-        <input type="file" accept="image/*" capture="camera">
+        {{--<input type="file" accept="video/*" capture="camera">--}}
 
         {{--<ul class="nav nav-tabs nav-justified" style="margin-bottom: 12px;">--}}
             {{--<li class="active">--}}
