@@ -28,7 +28,10 @@ Route::get('matches/send/{match}', 'MatchesController@buildMail');
 
 Route::post('/matches/edit/{match}', 'MatchesController@update');
 Route::post('/matches', 'MatchesController@store');
-Route::post('/matches/send/{match}', 'MatchesController@sendMail');
+Route::post('/matches/send/{match}', 'MessagesController@sendMail');
+//Availabilty
+Route::get('matches/{match_id}/available/{player_id}', 'MatchesController@available');
+Route::get('matches/{match_id}/unavailable/{player_id}', 'MatchesController@unavailable');
 
 
 // Opponents
@@ -47,3 +50,5 @@ Route::post('/venues', 'VenuesController@store');
 // Player
 Route::get('/messages', 'MessagesController@index');
 Route::post('/receive-mail', 'MessagesController@receiveMail');
+Route::post('/messages/{message}/mark-as-read', 'MessagesController@markAsRead');
+Route::post('/messages/{message}/mark-as-unread', 'MessagesController@markAsUnread');

@@ -2,7 +2,14 @@
 
 @section('content')
 
-    <div class="container mt-4">
+    <div class="container">
+
+        @admin
+            <div class="mb-4">
+                <a href="/opponents/create" class="btn btn-primary">Add Opponent</a>
+                <a href="/venues/create" class="btn btn-primary">Add Venue</a>
+            </div>
+        @endadmin
 
 
         @foreach($opponents as $opponent)
@@ -30,10 +37,6 @@
 
             @endforeach
 
-
-        @admin
-            <a href="/opponents/create" class="btn btn-primary">Add New</a>
-        @endadmin
 
     </div>
 

@@ -24,14 +24,24 @@
 <body>
     <div id="app">
 
+        {{-- I get the message count up here because it seems a bit tidier, though one day this should be abstracted --}}
+        @if (Auth::user() && !empty(auth()->user()->player->messages))
+            @php($unread_message_count = 0)
 
-        <nav class="navbar navbar-toggleable-md navbar-inverse bg-danger">
+            @foreach (auth()->user()->player->messages as $message)
+                @if (!$message->read)
+                    @php($unread_message_count++)
+                @endif
+            @endforeach
+        @endif
+
+        <nav class="navbar navbar-toggleable-md navbar-inverse bg-danger mb-4">
             <div class="container">
 
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="/">{{ config('app.name') }}</a>
+                <a class="navbar-brand mr-5" href="/">{{ config('app.name') }}</a>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
@@ -43,16 +53,16 @@
                         <li class="nav-item {{ (Request::is('opponents') ? 'active' : '') }}">
                             <a class="nav-link" href="/opponents">Opponents</a>
                         </li>
-                        @if (Auth::user())
-                            <li class="nav-item {{ (Request::is('pairings') ? 'active' : '') }}">
-                                <a class="nav-link" href="/pairings">Pairings</a>
-                            </li>
-                        @endif
-                        @admin
-                        <li class="nav-item {{ (Request::is('messages') ? 'active' : '') }}">
-                            <a class="nav-link" href="/messages">Messages</a>
-                        </li>
-                        @endadmin
+                        {{--@if (Auth::user())--}}
+                            {{--<li class="nav-item {{ (Request::is('pairings') ? 'active' : '') }}">--}}
+                                {{--<a class="nav-link" href="/pairings">Pairings</a>--}}
+                            {{--</li>--}}
+                        {{--@endif--}}
+                        {{--@admin--}}
+                        {{--<li class="nav-item {{ (Request::is('messages') ? 'active' : '') }}">--}}
+                            {{--<a class="nav-link" href="/messages">Messages</a>--}}
+                        {{--</li>--}}
+                        {{--@endadmin--}}
 
                     </ul>
 
@@ -76,7 +86,7 @@
                                             </a>
                                             <a class="dropdown-item list-group-item justify-content-between" href="/messages">
                                                 Messages
-                                                <span class="badge badge-default badge-pill">1</span>
+                                                <span class="badge badge-info badge-pill">{{ $unread_message_count }}</span>
                                             </a>
                                             {{--onclick="event.preventDefault(); document.getElementById('logout-form').submit();"--}}
                                             <a class="dropdown-item list-group-item" href="{{ route('logout') }}">
@@ -123,6 +133,7 @@
         </nav>
 
         @yield('content')
+
     </div>
 
     <!-- Scripts -->

@@ -78,36 +78,7 @@ class MatchesController extends Controller
         return view('matches.build-mail', compact('players', 'match'));
     }
 
-    public function sendMail(Request $request)
-    {
 
-        $players = $request->players;
-        $match_id = $request->match_id;
-        $match = Match::find($match_id);
-
-        $match->player()->attach($players);
-
-        foreach ($match->player as $player) {
-            if (in_array($player->id, $players)) {
-                echo $player->pivot->emailed = 1;
-                $player->pivot->save();
-            }
-        }
-
-        $email_to = [];
-        foreach ($players as $player) {
-            $player_obj = Player::find($player);
-            $player_email = $player_obj->email;
-            array_push($email_to, $player_email);
-        }
-
-        foreach ($email_to as $email) {
-            \Mail::to($email)->send(new NewMatch($match));
-        }
-
-        return redirect('/matches')->with('emails-sent', 'Emails have been sent!');
-
-    }
 
     public function makePayment(Request $request)
     {
@@ -116,5 +87,34 @@ class MatchesController extends Controller
         $pivot_table = $request->user()->player->match->where('id', $match_id)->first()->pivot;
         $pivot_table->paid = 1;
         $pivot_table->save();
+
+    }
+
+    public function available(Request $request)
+    {
+
+        $match = Match::find($request->match_id);
+        $player = $match->player->where('id', $request->player_id)->first();
+        $player->pivot->available = 1;
+
+
+        $player->pivot->save();
+
+        return redirect("/matches/$match->id")->with('thanks_text', 'Thank you for signing up for the match');
+
+    }
+
+    public function unavailable(Request $request)
+    {
+
+        $match = Match::find($request->match_id);
+        $player = $match->player->where('id', $request->player_id)->first();
+        $player->pivot->not_available = 1;
+
+
+        $player->pivot->save();
+
+        return redirect("/matches/$match->id")->with('unthanks_text', 'No worries, hopefully see you next time');
+
     }
 }

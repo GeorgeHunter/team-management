@@ -3,6 +3,17 @@
 @section('content')
     <div class="container">
 
+        @if (session('thanks_text'))
+            <div class="alert alert-success">
+                {{ session('thanks_text') }}
+            </div>
+        @endif
+        @if (session('unthanks_text'))
+            <div class="alert alert-danger">
+                {{ session('unthanks_text') }}
+            </div>
+        @endif
+
         <h1 style="margin-bottom: 32px;">{{ $match->opponent->name }}</h1>
 
         <div class="col-md-6">

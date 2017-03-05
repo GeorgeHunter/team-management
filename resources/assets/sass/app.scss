@@ -39,3 +39,7 @@
   max-width: 100%;
   margin-bottom: 24px;
 }
+
+.collapse.show ~ .card-header {
+  background-color: blue !important;
+}

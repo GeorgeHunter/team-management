@@ -2,15 +2,21 @@
 
 @section('content')
 
-    <div class="container mt-4">
-        @if (session('status'))
+    <div class="container">
+        @if (session('emails-sent'))
             <div class="alert alert-success">
                 {{ session('emails-sent') }}
             </div>
         @endif
+
+        @admin
+            <a href="/matches/create" class="btn btn-primary mb-4">
+                Add New
+            </a>
+        @endadmin
+
         <h3 class="mb-4">Upcoming Matches</h3>
             
-            <div class="">
         @foreach ($matches as $match)
 
             @if ($match->date_time > $now)
@@ -39,29 +45,16 @@
                         </div>
                     </div>
 
-
-            {{--<div class="panel panel-info">--}}
-                {{--<div class="panel-heading">--}}
-                    {{--<h3 class="panel-title">{{ $match->opponent->name }}</h3>--}}
-                {{--</div>--}}
-                {{--<div class="panel-body">--}}
-                    {{----}}
-
-                {{--</div>--}}
-
-            {{--</div>--}}
-
             @endif
 
         @endforeach
-</div>
 
 
             <h3 class="mb-4">Results</h3>
 
             @foreach ($matches as $match)
 
-                @if ($match->date_time > $now)
+                @if ($match->date_time < $now)
 
                     <div class="card mb-4">
                         <div class="card-header bg-info text-white">
@@ -88,34 +81,10 @@
                         </div>
                     </div>
 
-
-                    {{--<div class="card">--}}
-                        {{--<div class="panel-heading">--}}
-                            {{----}}
-                        {{--</div>--}}
-                        {{--<div class="panel-body">--}}
-                            {{----}}
-
-                        {{--</div>--}}
-                        {{--<div class="panel-footer">--}}
-                        {{--<a target="_blank" href="{{ $match->opponent->venue->website_url }}"><div>View Website</div></a>--}}
-                        {{--</div>--}}
-
-                    {{--</div>--}}
-
                 @endif
 
             @endforeach
 
-        @admin
-            <a href="/matches/create" class="btn btn-primary mb-4">
-                Add New
-            </a>
-        @endadmin
-
-
     </div>
-
-
 
 @stop
