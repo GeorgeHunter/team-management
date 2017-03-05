@@ -86,7 +86,7 @@
                                             </a>
                                             <a class="dropdown-item list-group-item justify-content-between" href="/messages">
                                                 Messages
-                                                <span class="badge badge-info badge-pill">{{ $unread_message_count }}</span>
+                                                <span class="badge badge-info badge-pill">@if(isset($unread_message_count)){{ $unread_message_count }}@endif</span>
                                             </a>
                                             {{--onclick="event.preventDefault(); document.getElementById('logout-form').submit();"--}}
                                             <a class="dropdown-item list-group-item" href="{{ route('logout') }}">
