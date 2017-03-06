@@ -17,6 +17,12 @@ class CreateVenuesTable extends Migration
             $table->increments('id');
             $table->integer('opponent_id')->unsigned()->nullable();
             $table->string('name');
+            $table->string('address_1');
+            $table->string('address_2')->nullable();
+            $table->string('address_3')->nullable();
+            $table->string('town')->nullable();
+            $table->string('county');
+            $table->string('post_code');
             $table->string('lat');
             $table->string('long');
             $table->string('website_url');

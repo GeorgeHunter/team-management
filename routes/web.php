@@ -49,9 +49,9 @@ Route::post('/venues', 'VenuesController@store');
 
 // Player
 Route::get('/players', 'PlayerController@index');
-Route::get('/players/{player}', 'PlayerController@show');
 Route::get('/players/create', 'PlayerController@create');
-Route::post('/players', 'PlayerController@store');
+Route::get('/players/{player}', 'PlayerController@show');
+//Route::post('/players', 'PlayerController@store');
 
 // Message Handling
 Route::get('/messages', 'MessagesController@index');
