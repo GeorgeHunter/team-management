@@ -19,7 +19,7 @@ class CreateMessagesTable extends Migration
             $table->string('subject');
             $table->text('body');
             $table->date('sent')->nullable();
-            $table->date('read');
+            $table->integer('read');
             $table->timestamps();
         });
     }
