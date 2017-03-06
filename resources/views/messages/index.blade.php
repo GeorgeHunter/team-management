@@ -35,8 +35,8 @@
 
                     <div id="collapse{{$message->id}}" class="collapse @if(!$message->read) show @endif" role="tabpanel" aria-labelledby="headingOne">
                         <div class="card-block">
-                            <div><strong>{{ $message->subject }}</strong></div>
-                            <div>{{ $message->body }}</div>
+                            <div class="mb-4"><strong>{{ $message->subject }}</strong></div>
+                            <div>{!! $message->body !!}</div>
                         </div>
                     </div>
 

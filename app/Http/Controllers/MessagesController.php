@@ -117,8 +117,15 @@ class MessagesController extends Controller
 
                 $message = new Message;
                 $message->from = $send_to->email;
-                $message->subject = "Email about $match->date_time->format(d-M-Y)";
-                $message->body = "Match is $match->venue against $match->opponent";
+//                $message->body = "Match is $match->venue against $match->opponent";
+                // Vars for the message
+                $match_date_time = $match->date_time->format('d M');
+                $match_venue = $match->venue;
+                $match_opponent_name = $match->opponent->name;
+                $match_start_time = $match->date_time->format('H:i');
+
+                $message->subject = "Match against $match_opponent_name on $match_date_time";
+                $message->body = "<p>Just a quick email to let you know about a match on $match_date_time, $match_venue against $match_opponent_name.</p>The match starts at $match_start_time. As usual navy trousers, white shirt and navy jumper are preferred. Food is available after the match and the total cost is £12.";
                 $message->sent = Carbon::now();
                 $message->read = 0;
 

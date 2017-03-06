@@ -51,7 +51,7 @@ Route::post('/venues', 'VenuesController@store');
 Route::get('/players', 'PlayerController@index');
 Route::get('/players/create', 'PlayerController@create');
 Route::get('/players/{player}', 'PlayerController@show');
-//Route::post('/players', 'PlayerController@store');
+Route::post('/players', 'PlayerController@store');
 
 // Message Handling
 Route::get('/messages', 'MessagesController@index');
