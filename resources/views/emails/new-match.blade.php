@@ -14,9 +14,9 @@ I'm available!
 @endcomponent
 
 @component('mail::button', ['url' => "http://team-management.dev/matches/$match->id/unavailable/$player->id"])
-I'm available!
+I'm not available!
 @endcomponent
 
 Thanks,<br>
-{{ config('app.name') }}
+George Hunter
 @endcomponent

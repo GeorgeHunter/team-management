@@ -15,9 +15,9 @@
 
         {{--@php(dd($match_check))--}}
 
-        <h3>Select people to email</h3>
+        <h3 class="mb-4">Select people to email</h3>
 
-        <form method="POST" action="/matches/send/{{ $match->id }}">
+        <form method="POST" action="/matches/send/{{ $match->id }}" class="mb-4">
 
             {{ csrf_field() }}
 
@@ -36,7 +36,7 @@
                 @endif
             @endforeach
 
-            <button type="submit" class="btn btn-primary">Send!</button>
+            <button type="submit" class="btn btn-primary mt-2">Send!</button>
 
         </form>
 

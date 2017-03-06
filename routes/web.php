@@ -48,6 +48,12 @@ Route::get('/venues/create', 'VenuesController@create');
 Route::post('/venues', 'VenuesController@store');
 
 // Player
+Route::get('/players', 'PlayerController@index');
+Route::get('/players/{player}', 'PlayerController@show');
+Route::get('/players/create', 'PlayerController@create');
+Route::post('/players', 'PlayerController@store');
+
+// Message Handling
 Route::get('/messages', 'MessagesController@index');
 Route::post('/receive-mail', 'MessagesController@receiveMail');
 Route::post('/messages/{message}/mark-as-read', 'MessagesController@markAsRead');

@@ -35,7 +35,7 @@
             @endforeach
         @endif
 
-        <nav class="navbar navbar-toggleable-md navbar-inverse bg-danger mb-4">
+        <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary mb-4">
             <div class="container">
 
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,9 @@
                         </li>
                         <li class="nav-item {{ (Request::is('opponents') ? 'active' : '') }}">
                             <a class="nav-link" href="/opponents">Opponents</a>
+                        </li>
+                        <li class="nav-item {{ (Request::is('players') ? 'active' : '') }}">
+                            <a class="nav-link" href="/players">Players</a>
                         </li>
                         {{--@if (Auth::user())--}}
                             {{--<li class="nav-item {{ (Request::is('pairings') ? 'active' : '') }}">--}}
@@ -84,14 +87,22 @@
                                             <a class="dropdown-item list-group-item" href="/dashboard">
                                                 <i class="fa fa-th fa-fw mr-2"></i> Dashboard
                                             </a>
-                                            <a class="dropdown-item list-group-item justify-content-between" href="/messages">
-                                                Messages
-                                                <span class="badge badge-info badge-pill">@if(isset($unread_message_count)){{ $unread_message_count }}@endif</span>
-                                            </a>
+                                            @admin
+                                                <a class="dropdown-item list-group-item justify-content-between" href="/messages">
+                                                    Messages
+                                                    <span class="badge badge-info badge-pill">@if(isset($unread_message_count)){{ $unread_message_count }}@endif</span>
+                                                </a>
+                                            @endadmin
                                             {{--onclick="event.preventDefault(); document.getElementById('logout-form').submit();"--}}
-                                            <a class="dropdown-item list-group-item" href="{{ route('logout') }}">
-                                                <i class="fa fa-sign-out fa-fw mr-2"></i> Logout
+                                            <a href="{{ route('logout') }}" class="dropdown-item list-group-item justify-content-between"
+                                               onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                                Logout
                                             </a>
+
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                {{ csrf_field() }}
+                                            </form>
 
                                         </div>
                                     </li>

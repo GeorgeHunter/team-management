@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Player;
 use Illuminate\Http\Request;
-use App\Match;
-use Mailgun\Mailgun;
-use GuzzleHttp\Client;
-use App\Message;
+
 
 class PlayerController extends Controller
 {
@@ -17,7 +15,8 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        //
+        $players = Player::get();
+        return view('players/index', compact('players'));
     }
 
     /**
@@ -27,7 +26,7 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        //
+        return view('players/create');
     }
 
     /**
@@ -38,7 +37,16 @@ class PlayerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $player = new Player;
+
+        $player->first_name = request('first_name');
+        $player->last_name = request('last_name');
+        $player->handicap = request('handicap');
+        $player->email = request('email');
+
+        $player->save();
+
+        return redirect('/players')->with('added_player', "$player->first_name successfully added");
     }
 
     /**

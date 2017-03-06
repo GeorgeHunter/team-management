@@ -50,7 +50,7 @@ class VenuesController extends Controller
 
         $venue->save();
 
-        redirect('/');
+        redirect('/opponents');
     }
 
     /**

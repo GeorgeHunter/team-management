@@ -10,45 +10,54 @@
         @endif
 
         @admin
-            <a href="/matches/create" class="btn btn-primary mb-4">
+            <a href="/matches/create" class="btn btn-info mb-4">
                 Add New
             </a>
         @endadmin
 
         <h3 class="mb-4">Upcoming Matches</h3>
-            
-        @foreach ($matches as $match)
+            <div class="row">
 
-            @if ($match->date_time > $now)
+            @foreach ($matches as $match)
 
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h6 style="margin-bottom: 0; font-weight: normal;" class="panel-title">{{ $match->opponent->name }}</h6>
-                        </div>
-                        <div class="card-block">
-                            <p><span style="text-transform: capitalize;">{{ $match->venue }}</span> | {{ $match->date_time }}</p>
-                            <strong>{{ $match->response }}</strong>
 
-                            <p>Team:</p>
-                            @if (count ($match->player))
+                @if ($match->date_time > $now)
 
-                                <ul>
-                                    @foreach ($match->player as $player)
+                    <div class="col-lg-6 col-xl-4">
 
-                                        <li>{{ $player->first_name }}</li>
+                        <div class="card mb-4">
+                            <div class="card-header bg-info">
+                                <h6 style="margin-bottom: 0; font-weight: normal;" class="panel-title"><a class="text-white" href="/matches/{{ $match->id }}">{{ $match->opponent->name }}</a></h6>
+                            </div>
+                            <div class="card-block">
+                                <p><span style="text-transform: capitalize;">{{ $match->venue }}</span> | {{ $match->date_time->format('D M-d Y') }}</p>
+                                <strong>{{ $match->response }}</strong>
 
-                                    @endforeach
-                                </ul>
-                            @else
-                                No Players Added Yet
-                            @endif
+                                @admin
+                                <a href="/matches/send/{{$match->id}}" class="btn btn-outline-primary mb-2">Send emails</a>
+                                @endadmin
+
+                                {{--<p>Team:</p>--}}
+                                {{--@if (count ($match->player))--}}
+                                        {{--<ul>--}}
+                                            {{--@foreach ($match->player as $player)--}}
+                                                {{--@if ($player->pivot->available)--}}
+                                                    {{--<li>{{ $player->first_name }}</li>--}}
+                                                {{--@endif--}}
+                                            {{--@endforeach--}}
+                                        {{--</ul>--}}
+                                {{--@else--}}
+                                    {{--No Players Added Yet--}}
+                                {{--@endif--}}
+                            </div>
                         </div>
                     </div>
+                @endif
 
-            @endif
+
 
         @endforeach
-
+            </div>
 
             <h3 class="mb-4">Results</h3>
 

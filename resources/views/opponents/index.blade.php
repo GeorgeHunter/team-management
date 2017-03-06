@@ -6,8 +6,8 @@
 
         @admin
             <div class="mb-4">
-                <a href="/opponents/create" class="btn btn-primary">Add Opponent</a>
-                <a href="/venues/create" class="btn btn-primary">Add Venue</a>
+                <a href="/opponents/create" class="btn btn-info">Add Opponent</a>
+                <a href="/venues/create" class="btn btn-info">Add Venue</a>
             </div>
         @endadmin
 
@@ -15,7 +15,7 @@
         @foreach($opponents as $opponent)
 
                 <div class="card mb-4">
-                    <div class="card-header bg-info text-white">
+                    <div class="card-header bg-danger text-white">
                         <h6 class="panel-title mb-0">{{ $opponent->name }}</h6>
                     </div>
                     <div class="card-block">
@@ -26,7 +26,7 @@
                             </div>
 
                             <div class="card-footer">
-                                <a href="{{ $opponent->venue->website_url }}"><div>View Website</div></a>
+                                <a href="{{ $opponent->venue->website_url }}" class="text-danger"><div>View Website</div></a>
 
 
                         @else

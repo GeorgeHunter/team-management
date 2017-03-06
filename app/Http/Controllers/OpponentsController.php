@@ -51,7 +51,7 @@ class OpponentsController extends Controller
 
 //        \Mail::to('georg.io@hotmail.co.uk')->send(new NewMatch);
 
-        return redirect('/dashboard');
+        return redirect('/opponents');
     }
 
     /**
