@@ -44,6 +44,12 @@ class VenuesController extends Controller
 
         $venue->opponent_id = request('opponent_id');
         $venue->name = request('name');
+        $venue->address_1 = request('address_1');
+        $venue->address_2 = request('address_2');
+        $venue->address_3 = request('address_3');
+        $venue->town = request('town');
+        $venue->county = request('county');
+        $venue->post_code = request('post_code');
         $venue->lat = request('lat');
         $venue->long= request('long');
         $venue->website_url= request('website_url');
