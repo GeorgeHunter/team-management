@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="card-footer">
-                            <a href="{{ $opponent->venue->website_url }}" class="text-danger"><div>View Website</div></a>
+                            <a href="{{ $opponent->venue->website_url }}" target="_blank" class="text-danger"><div>View Website</div></a>
 
 
                             @else
