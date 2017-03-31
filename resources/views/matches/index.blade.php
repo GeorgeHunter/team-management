@@ -4,9 +4,9 @@
 
     <div class="container">
         @if (session('emails-sent'))
-            <div class="alert alert-success">
+            <alert status="success">
                 {{ session('emails-sent') }}
-            </div>
+            </alert>
         @endif
 
         @admin

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
     <div class="container">
 
@@ -14,44 +15,71 @@
             </div>
         @endif
 
-        <h1 style="margin-bottom: 32px;">{{ $match->opponent->name }}</h1>
+        <h1 class="h2 mb-4">{{ $match->opponent->name }}</h1>
 
-        <div class="col-md-6">
-            <h3>Details</h3>
-            <ul>
-                <li>{{ $match->venue }}</li>
-                <li>{{ $match->date_time->format('d-M-Y') }}</li>
-                <li>{{ $match->date_time->format('H:i') }}</li>
-            </ul>
-            <a href="{{ $match->opponent->website_url }}">View Website</a>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <h3 class="h5">Details</h3>
+                <ul class="mb-3">
+                    <li class="text-capitalize">Venue: <span class="font-weight-bold">{{ $match->venue }}</span></li>
+                    <li>Date: <span class="font-weight-bold">{{ $match->date_time->format('D d M Y') }}</span></li>
+                    <li>Start: <span class="font-weight-bold">{{ $match->date_time->format('H:i') }}</span></li>
+                </ul>
+                <a class="btn btn-info" href="{{ $match->opponent->website_url }}">View Website</a>
+            </div>
+
+
+
+
+
         </div>
 
-        <div class="col-md-6">
-            <h3>Team</h3>
-                @foreach( $match->pairing as $pairing)
-                    @foreach ($pairing->player as $player)
-                        {{ $player->first_name }} {{ $player->last_name }} @if($loop->first)|@endif
+        <div class="row">
+
+            <div class="col-md-6">
+                <h3 class="h5">Team</h3>
+                <ul>
+                    @foreach ($match->player as $player)
+                        <li>{{ $player->first_name }} {{ $player->last_name }}
+                            @if($player->pivot->paid == 1)
+                                <i class="fa fa-check-circle-o text-success"></i>
+                            @endif
+                        </li>
                     @endforeach
-                    <div><strong>Points: {{ $pairing->pivot->points }}</strong></div>
-                @endforeach
+                </ul>
 
-            <a href="/matches/edit/{{ $match->id }}">Edit Team</a>
-            
-            <hr>
+            </div>
+
+            <div class="col-md-6">
+                <h3 class="h5">Pairings</h3>
+                @if (count($match->pairing) > 0)
+                    @foreach( $match->pairing as $pairing)
+                        @foreach ($pairing->player as $player)
+                            {{ $player->first_name }} {{ $player->last_name }} @if($loop->first)|@endif
+                        @endforeach
+                        <div><strong>Points: {{ $pairing->pivot->points }}</strong></div>
+                    @endforeach
+                @else
+                    Pairings will be shown here when decided
+                @endif
+
+                @admin
+                <a href="/matches/edit/{{ $match->id }}">Edit Team</a>
+                @endadmin
+
+            </div>
+
+
         </div>
 
-        <div>
-            <p>Also the team?</p>
-            <ul>
-                @foreach ($match->player as $player)
-                    <li>{{ $player->first_name }} {{ $player->last_name }} @if($player->pivot->paid == 1) | Paid! @endif</li>
-                @endforeach
-            </ul>
-
-        </div>
 
 
-        <div class="col-xs-12" style="margin-top: 32px;">
+
+
+
+
+
+        <div class="col-xs-12 mb-5" style="margin-top: 32px;">
             <a href="/matches" class="btn btn-primary btn-large">Back to All</a>
         </div>
 
