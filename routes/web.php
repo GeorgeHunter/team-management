@@ -12,6 +12,8 @@
 */
 
 
+use App\Opponent;
+
 Route::get('/dashboard', 'HomeController@dashboard')->middleware('auth');;
 Route::get('/', 'HomeController@index');
 
@@ -54,7 +56,17 @@ Route::get('/players/{player}', 'PlayerController@show');
 Route::post('/players', 'PlayerController@store');
 
 // Message Handling
-Route::get('/messages', 'MessagesController@index');
+Route::get('/messages', 'MessagesController@index')->middleware('auth');
 Route::post('/receive-mail', 'MessagesController@receiveMail');
-Route::post('/messages/{message}/mark-as-read', 'MessagesController@markAsRead');
-Route::post('/messages/{message}/mark-as-unread', 'MessagesController@markAsUnread');
+Route::post('/messages/{message_param}/mark-as-read', 'MessagesController@markAsRead');
+Route::post('/messages/{message_param}/mark-as-unread', 'MessagesController@markAsUnread');
+
+
+// API Routes
+
+Route::get('/api/v1/opponents', function () {
+    return Opponent::get();
+})->middleware('cors');
+
+Route::match(['post', 'options'], '/api/v1/opponents', 'OpponentsController@store')->middleware('cors');
+Route::get('/api/v1/messages', 'MessagesController@messagesJson')->middleware('cors');
