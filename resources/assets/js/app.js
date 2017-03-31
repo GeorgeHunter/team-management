@@ -13,8 +13,21 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+Vue.component('message', require('./components/Message.vue'));
+Vue.component('alert', require('./components/Alert.vue'));
 
 const app = new Vue({
+    data: {
+        showNav: false
+    },
+    methods: {
+      toggleNav() {
+          if (this.showNav === false) {
+              this.showNav = true;
+          } else {
+              this.showNav = false;
+          }
+      }
+    },
     el: '#app'
 });
