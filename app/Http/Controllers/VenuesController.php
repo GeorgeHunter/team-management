@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Venue;
 use App\Opponent;
 
+/**
+ * Class VenuesController
+ * @package App\Http\Controllers
+ */
 class VenuesController extends Controller
 {
     /**
@@ -36,11 +40,11 @@ class VenuesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Venue  $venue
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Venue $venue)
     {
-        $venue = new Venue;
 
         $venue->opponent_id = request('opponent_id');
         $venue->name = request('name');

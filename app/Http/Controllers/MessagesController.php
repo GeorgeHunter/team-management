@@ -91,31 +91,21 @@ class MessagesController extends Controller
         //
     }
 
-    public function sendMail(Request $request)
+    public function sendMail(Request $request, Message $message)
     {
 
         // store the message
-
-
-
-
-
-
-//send with mailgun
         $players = $request->players;
         $match_id = $request->match_id;
         $match = Match::find($match_id);
 
-
-
-
         $match->player()->attach($players);
 
         foreach ($match->player as $player) {
-            if (in_array($player->id, $players)) {
+            if (in_array($player->id, $players) && $player->emailed == 0    ) {
                 $send_to = Player::find($player->id);
 
-                $message = new Message;
+
                 $message->from = $send_to->email;
 //                $message->body = "Match is $match->venue against $match->opponent";
                 // Vars for the message
@@ -133,27 +123,29 @@ class MessagesController extends Controller
             }
         }
 
+        // set the emailed value
         foreach ($match->player as $player) {
-            if (in_array($player->id, $players)) {
+            if (in_array($player->id, $players) && $player->emailed == 0    ) {
                 echo $player->pivot->emailed = 1;
                 $player->pivot->save();
             }
         }
 
-        foreach ($players as $player_select) {
-            $player = Player::find($player_select);
-            \Mail::to($player->email)->send(new NewMatch($match, $player));
-        }
 
+        //send the mail
+        if (false) {
+            foreach ($players as $player_select) {
+                $player = Player::find($player_select);
+                \Mail::to($player->email)->send(new NewMatch($match, $player));
+            }
+        }
 
         return redirect('/matches')->with('emails-sent', 'Emails have been sent!');
 
     }
 
-    public function receiveMail ()
+    public function receiveMail (Message $message)
     {
-
-        $message = new Message;
 
         $message->from = $_POST['From'];
         $message->body = $_POST['stripped-html'];
@@ -163,26 +155,24 @@ class MessagesController extends Controller
         $message->save();
     }
 
-    public function markAsRead()
+    public function markAsRead($message_param)
     {
-        $message_id = request('message_id');
-//        dd($request);
-        $message = Message::find($message_id);
+        $message = Message::find($message_param);
         $message->read = 1;
         $message->save();
-
-        return redirect("/messages/#tab{$message_id}");
     }
 
-    public function markAsUnread()
+    public function markAsUnread($message_param)
     {
-        $message_id = request('message_id');
-//        dd($request);
-        $message = Message::find($message_id);
+        $message = Message::find($message_param);
         $message->read = 0;
         $message->save();
+    }
 
-        return redirect("/messages/#tab{$message_id}");
+    public function messagesJson()
+    {
+        $messages = Message::get();
+        return $messages;
     }
 
 }

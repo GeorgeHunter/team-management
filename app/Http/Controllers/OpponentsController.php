@@ -17,6 +17,8 @@ class OpponentsController extends Controller
     public function index()
     {
         $opponents = Opponent::get();
+//        header('Access-Control-Allow-Origin: *');
+//        return $opponents;
         return view('opponents/index', compact('opponents'));
     }
 
@@ -38,20 +40,19 @@ class OpponentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Opponent $opponent)
     {
-        $opponent = new Opponent;
+//        header('Access-Control-Allow-Origin: *');
 
-        $opponent->name = request('name');
-//        $opponent->website_url = request('url');
-//        $opponent->location_id = request('venue');
-//        $opponent->match_id = 1;
-
+        $opponent->name = $_POST['name'];
         $opponent->save();
 
-//        \Mail::to('georg.io@hotmail.co.uk')->send(new NewMatch);
-
         return redirect('/opponents');
+//
+//        Opponent::forceCreate([
+//            'name' => request('name')
+//        ]);
+//        return "hello?";
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Match;
+use DB;
 
 class HomeController extends Controller
 {
@@ -26,16 +27,12 @@ class HomeController extends Controller
     public function index()
     {
         $now = Carbon::now(); // For comparison purposes in the view
-        $matches = Match::get();
-        $next_match = Match::get()->where('date_time', '>', $now)->first();
+        $next_match = Match::orderBy('date_time')->where('date_time', '>=', '2017-03-27')->first();
+        $future_matches = Match::orderBy('date_time')->where('date_time', '>=', '2017-03-27')->get();
+        $results = Match::orderBy('date_time')->where('date_time', '<=', '2017-03-27')->get();
 
-//        if (!empty(\Auth::User()->player)) {
-//            $user_pairings = \Auth::User()->player->pairing;
-//            return view('home', compact('now', 'user_pairings'));
-//        } else {
 
-            return view('home', compact('now', 'next_match'));
-//        }
+        return view('home', compact('now', 'next_match', 'future_matches', 'results'));
 
     }
 
@@ -47,4 +44,5 @@ class HomeController extends Controller
 
         return view('dashboard');
     }
+
 }
