@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
+    <div class="row mb-5">
         <div class="col-md-8 offset-md-2" style="margin-top: 48px;">
 
             <div class="card">
@@ -27,7 +27,8 @@
 
 
                         <div class="form-group {{ $errors->has('email') ? ' has-danger' : '' }}">
-                            <label class="form-control-label" for="email">Email</label>
+                            <label class="form-control-label" for="email">Email</label> <br>
+                            <small>Ensure you sign up with the email you normally receive 3 Counties correspondence from</small>
                             <input type="text" class="form-control form-control-error" id="email" name="email">
                             @if ($errors->has('email'))
                                 <div class="form-control-feedback">
