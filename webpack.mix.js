@@ -13,10 +13,15 @@ const { mix } = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
-    .version;
+    .browserSync({
+        proxy: 'team-management.dev'
+    })
+    .version
 
-mix.browserSync({
-    proxy: 'team-management.dev'
-});
+;
+
+// mix.browserSync({
+//     proxy: 'team-management.dev'
+// });
 
 // mix.version();
