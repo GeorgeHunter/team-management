@@ -8,32 +8,6 @@
 // Font Awesome
 @import "../font-awesome-4.7.0/scss/font-awesome";
 
-.twitter-typeahead {
-  display: block !important;
-}
-
-.tt-suggestion {
-  background: #fff;
-  padding: 12px;
-  cursor: pointer;
-  &:hover {
-    background: #eee;
-  }
-}
-
-.tt-menu {
-  background: #fff !important;
-  left: 0;
-  right: 0;
-}
-
-.tt-suggestion:not(:last-child) {
-  border-bottom: 1px solid #ccc;
-}
-
-.navbar {
-  //margin-bottom: 0;
-}
 
 .banner__img {
   max-width: 100%;
@@ -42,4 +16,40 @@
 
 .collapse.show ~ .card-header {
   background-color: blue !important;
+}
+
+.pagination {
+  li {
+    display: inline-block;
+    padding:  0 6px;
+    text-align: center;
+  }
+  .active {
+    border-bottom: 1px solid #062f4f;
+  }
+}
+
+.row--players {
+  min-height: 400px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
+}
+
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active for <2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
