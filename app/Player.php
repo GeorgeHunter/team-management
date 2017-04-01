@@ -23,6 +23,11 @@ class Player extends Model
 
     public function messages()
     {
+        return $this->hasMany('App\Message', 'to', 'email');
+    }
+
+    public function sentMessages()
+    {
         return $this->hasMany('App\Message', 'from', 'email');
     }
 }
