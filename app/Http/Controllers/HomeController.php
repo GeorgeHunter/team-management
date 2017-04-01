@@ -42,7 +42,16 @@ class HomeController extends Controller
 
 //        $user_pairings = \Auth::User()->player->pairing;
 
-        return view('dashboard');
+        $messages = \App\Message::get();
+        $players = \App\Player::get();
+
+//        foreach($players as $player) {
+//            var_dump($player->messages);
+//            echo "<br> <br>";
+//        }
+
+
+        return view('dashboard', compact('messages', 'players'));
     }
 
 }
