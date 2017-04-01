@@ -1980,25 +1980,56 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
         return {
             messages: [],
-            selectedMessage: {},
+            selectedMessage: null,
             editing: false,
-            selectedMessages: []
+            selectedMessages: [],
+            viewMode: 'inbox',
+            sentMessages: [],
+            selectedSent: null
         };
     },
 
     methods: {
         toggleRead: function toggleRead(message) {},
         selectMessage: function selectMessage(message) {
+            this.selectedMessages = [];
             this.selectedMessage = message;
-            //              if (message.read === 0) {
-            //                  message.read = 1;
-            //                  axios.post('http://team-management.dev/messages/' + message.id +'/mark-as-read');
-            //              }
+            if (message.read === 0) {
+                message.read = 1;
+                axios.post('http://team-management.dev/messages/' + message.id + '/mark-as-read');
+            }
         },
         toggleEditMode: function toggleEditMode() {
             if (this.editing == false) {
@@ -2009,6 +2040,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         pushMultiSelect: function pushMultiSelect(message) {
             if (!this.selectedMessages.includes(message)) {
+                this.selectedMessage = {};
                 this.selectedMessages.push(message);
             }
         },
@@ -2017,8 +2049,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.selectedMessages[i].read = 1;
                 axios.post('http://team-management.dev/messages/' + this.selectedMessages[i].id + '/mark-as-read');
             }
+        },
+        markAllAsUnread: function markAllAsUnread() {
+            for (var i = 0; i < this.selectedMessages.length; i++) {
+                this.selectedMessages[i].read = 0;
+                axios.post('http://team-management.dev/messages/' + this.selectedMessages[i].id + '/mark-as-unread');
+            }
+        },
+        setViewMode: function setViewMode(mode) {
+            this.viewMode = mode;
+        },
+        selectSent: function selectSent(message) {
+            this.selectedSent = message;
         }
     },
+
+    //        computed() {
+    //          showSelectedMessagesArray : {}
+    //        },
+
     mounted: function mounted() {
         var _this = this;
 
@@ -2028,6 +2077,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
         messagePromise.then(function (response) {
             return _this.selectedMessage = response.data[0];
+        });
+        messagePromise.then(function (response) {
+            return response.data[0].read = 1;
+        });
+        messagePromise.then(function (response) {
+            return axios.post('http://team-management.dev/messages/' + response.data[0].id + '/mark-as-read');
+        });
+
+        var sentMessages = axios.get('http://team-management.dev/api/v1/sent-messages');
+        sentMessages.then(function (response) {
+            return _this.sentMessages = response.data;
+        });
+        sentMessages.then(function (response) {
+            return _this.selectedSent = response.data[0];
         });
     }
 };
@@ -19322,12 +19385,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.toggleEditMode
     }
-  }, [_vm._v("Edit")]), _vm._v(" "), (_vm.editing) ? _c('div', {
+  }, [_vm._v("Edit")]), _vm._v(" "), (_vm.viewMode == 'inbox') ? _c('div', {
+    staticClass: "btn btn-info mb-2",
+    on: {
+      "click": function($event) {
+        _vm.setViewMode('sent')
+      }
+    }
+  }, [_vm._v("View Sent")]) : _vm._e(), _vm._v(" "), (_vm.viewMode == 'sent') ? _c('div', {
+    staticClass: "btn btn-info mb-2",
+    on: {
+      "click": function($event) {
+        _vm.setViewMode('inbox')
+      }
+    }
+  }, [_vm._v("View Inbox")]) : _vm._e(), _vm._v(" "), (_vm.editing) ? _c('div', {
     staticClass: "btn btn-primary mb-2",
     on: {
       "click": _vm.markAllAsRead
     }
-  }, [_vm._v("Mark As Read")]) : _vm._e(), _vm._v("\n    " + _vm._s(_vm.selectedMessages) + "\n    "), _c('div', {
+  }, [_vm._v("Mark As Read")]) : _vm._e(), _vm._v(" "), (_vm.editing) ? _c('div', {
+    staticClass: "btn btn-warning mb-2",
+    on: {
+      "click": _vm.markAllAsUnread
+    }
+  }, [_vm._v("Mark As Unread")]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "row messages"
   }, [_c('div', {
     staticClass: "col-sm-6",
@@ -19365,18 +19447,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })])])], 1) : _vm._e()
   }), _vm._v(" "), _vm._l((_vm.messages), function(message) {
-    return _c('div', {
+    return (_vm.viewMode == 'inbox') ? _c('div', {
       staticClass: "card mb-4 p-2",
-      class: {
+      class: [{
+        'bg-info': _vm.selectedMessages.includes(message)
+      }, {
         'bg-info': message.id == _vm.selectedMessage.id
-      },
+      }],
       staticStyle: {
         "width": "100%"
-      },
-      on: {
-        "click": function($event) {
-          _vm.selectMessage(message)
-        }
       }
     }, [_c('div', {
       staticClass: "row"
@@ -19384,6 +19463,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "col-1",
       staticStyle: {
         "position": "relative"
+      },
+      on: {
+        "click": function($event) {
+          _vm.selectMessage(message)
+        }
       }
     }, [(message.read == 0) ? _c('span', {
       staticClass: "text-primary",
@@ -19399,18 +19483,71 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "aria-hidden": "true"
       }
     })]) : _vm._e()]), _vm._v(" "), _c('div', {
-      staticClass: "col-10"
-    }, [_vm._v(_vm._s(message.from) + " "), _c('br'), _vm._v("\n                        " + _vm._s(message.subject))]), _vm._v(" "), _c('div', {
-      staticClass: "col-1",
+      staticClass: "col-9",
+      on: {
+        "click": function($event) {
+          _vm.selectMessage(message)
+        }
+      }
+    }, [_c('div', [_vm._v(_vm._s(message.from))]), _vm._v("\n                        " + _vm._s(message.subject) + "\n                    ")]), _vm._v(" "), _c('div', {
+      staticClass: "col-2",
+      staticStyle: {
+        "display": "flex"
+      },
       on: {
         "click": function($event) {
           _vm.pushMultiSelect(message)
         }
       }
-    }, [(_vm.editing) ? _c('span', [_vm._v("Select")]) : _vm._e()])])])
+    }, [(_vm.editing) ? _c('span', {
+      staticStyle: {
+        "margin": "auto",
+        "margin-right": "6px"
+      }
+    }, [(_vm.selectedMessages.includes(message)) ? _c('i', {
+      staticClass: "fa fa-check-circle-o fa-2x"
+    }) : _vm._e(), _vm._v(" "), (!_vm.selectedMessages.includes(message)) ? _c('i', {
+      staticClass: "fa fa-circle-o fa-2x",
+      staticStyle: {
+        "margin": "auto",
+        "display": "inline-block"
+      }
+    }) : _vm._e()]) : _vm._e()])])]) : _vm._e()
+  }), _vm._v(" "), _vm._l((_vm.sentMessages), function(message) {
+    return (_vm.viewMode == 'sent') ? _c('div', {
+      staticClass: "card mb-4 p-2",
+      class: {
+        'bg-info': _vm.selectedSent == message
+      },
+      on: {
+        "click": function($event) {
+          _vm.selectSent(message)
+        }
+      }
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-1"
+    }), _vm._v(" "), _c('div', {
+      staticClass: "col-11"
+    }, [_c('div', [_vm._v(_vm._s(message.to))]), _vm._v("\n                        " + _vm._s(message.subject) + "\n                    ")])])]) : _vm._e()
   })], 2), _vm._v(" "), _c('div', {
     staticClass: "col-sm-6"
-  }, [_vm._v("\n            " + _vm._s(_vm.selectedMessage) + "\n    ")])])])
+  }, [(_vm.viewMode == 'inbox') ? _c('div', [(_vm.selectedMessage) ? _c('div', [_c('div', {
+    staticClass: "mb-4 font-weight-bold"
+  }, [_vm._v(_vm._s(_vm.selectedMessage.from))]), _vm._v(" "), _c('div', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.selectedMessage.body)
+    }
+  })]) : _vm._e(), _vm._v(" "), _vm._l((_vm.selectedMessages), function(selectedMessageItem) {
+    return (_vm.selectedMessages.length > 0) ? _c('div', [_vm._v("\n                    " + _vm._s(selectedMessageItem.from) + "\n                ")]) : _vm._e()
+  })], 2) : _vm._e(), _vm._v(" "), (_vm.viewMode == 'sent') ? _c('div', [_c('div', {
+    staticClass: "mb-4 font-weight-bold"
+  }, [_vm._v(_vm._s(_vm.selectedSent.from))]), _vm._v(" "), _c('div', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.selectedSent.body)
+    }
+  })]) : _vm._e()])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
