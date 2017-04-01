@@ -171,8 +171,18 @@ class MessagesController extends Controller
 
     public function messagesJson()
     {
-        $messages = Message::get();
-        return $messages;
+//        $messages = Message::get();
+//        return $messages;
+            $user_messages = \Auth::user()->player->messages;
+            return $user_messages;
+    }
+
+    public function sentMessagesJson()
+    {
+//        $messages = Message::get();
+//        return $messages;
+            $user_messages = \Auth::user()->player->sentMessages;
+            return $user_messages;
     }
 
 }

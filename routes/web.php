@@ -31,6 +31,7 @@ Route::get('matches/send/{match}', 'MatchesController@buildMail');
 Route::post('/matches/edit/{match}', 'MatchesController@update');
 Route::post('/matches', 'MatchesController@store');
 Route::post('/matches/send/{match}', 'MessagesController@sendMail');
+
 //Availabilty
 Route::get('matches/{match_id}/available/{player_id}', 'MatchesController@available');
 Route::get('matches/{match_id}/unavailable/{player_id}', 'MatchesController@unavailable');
@@ -70,3 +71,4 @@ Route::get('/api/v1/opponents', function () {
 
 Route::match(['post', 'options'], '/api/v1/opponents', 'OpponentsController@store')->middleware('cors');
 Route::get('/api/v1/messages', 'MessagesController@messagesJson')->middleware('cors');
+Route::get('/api/v1/sent-messages', 'MessagesController@sentMessagesJson')->middleware('cors');
