@@ -26,7 +26,9 @@
 
         @include('layouts.partials.nav')
 
-        @yield('content')
+        <div class="mb-5">
+            @yield('content')
+        </div>
 
         @include('layouts.partials.footer')
 
