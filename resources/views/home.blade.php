@@ -13,7 +13,7 @@
 
         <div class="col-6 mb-5">
             <div class="card">
-                <div class="card-header bg-warning text-white">{{ $next_match->opponent->name }}</div>
+                <div class="card-header">{{ $next_match->opponent->name }}</div>
                 <div class="card-block">
                     <ul class="mb-1">
                         <li>{{ $next_match->date_time->format('D d-M') }}</li>
@@ -27,9 +27,9 @@
 
         <div class="col-6 mb-5">
             <div class="card">
-                <div class="card-header bg-info text-white"><span class="h5">Contact</span></div>
+                <div class="card-header bg-info text-white"><span>Contact</span></div>
                 <div class="card-block">
-                    <p>Don't hesitate to get in touch if you any questions or issues</p>
+                    <p>Don't hesitate to get in touch if you any questions or issues:</p>
                     <i class="fa fa-user fa-fw mr-2"></i> <span class="font-weight-bold">George Hunter</span> <br>
                     <i class="fa fa-phone fa-fw mr-2"></i> <a href="tel:07511928724">07511928724 <br></a>
                     <i class="fa fa-envelope fa-fw mr-2"></i> <a href="mailto:golf@wheathill.club">golf@wheathill.club</a>
@@ -67,7 +67,7 @@
 
     <div class="row">
 
-        <div class="col-12 mb-5">
+        <div class="col-12">
             <h1 class="h3 mb-4">Recent Results</h1>
 
             @if(count($results) > 0)
