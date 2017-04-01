@@ -21,8 +21,8 @@
                                     <td>Date</td>
                                     <td>Time</td>
                                     <td>Paid</td>
-                                    {{--<td style="width: 100px;">Available</td>--}}
-                                    {{--<td style="width: 100px;">Not Available</td>--}}
+                                    <td style="width: 100px;">Available</td>
+                                    <td style="width: 100px;">Not Available</td>
                                 </tr>
                                 @foreach( Auth::User()->player->match as $my_match)
                                     <tr>
@@ -34,19 +34,19 @@
                                             @if ( !$my_match->pivot->paid ) X @endif
 
                                         </td>
-                                        {{--<td style="width: 100px;">Available</td>--}}
-                                        {{--<td style="width: 180px;">Not Available</td>--}}
-                                        {{--<td style="width: 100px;">--}}
-                                        {{--@if ($my_match->pivot->available == 1)--}}
-                                        {{--<button class="btn btn-primary">--}}
-                                        {{--I'm Available--}}
-                                        {{--</button>--}}
-                                        {{--@else--}}
-                                        {{--<button class="btn btn-danger">--}}
-                                        {{--No longer availabe--}}
-                                        {{--</button>--}}
-                                        {{--@endif--}}
-                                        {{--</td>--}}
+                                        <td style="width: 100px;">Available</td>
+                                        <td style="width: 180px;">Not Available</td>
+                                        <td style="width: 100px;">
+                                        @if ($my_match->pivot->available == 1)
+                                        <button class="btn btn-primary">
+                                        I'm Available
+                                        </button>
+                                        @else
+                                        <button class="btn btn-danger">
+                                        No longer availabe
+                                        </button>
+                                        @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                                 @else
@@ -73,7 +73,8 @@
                                 <td>Body</td>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody> <i class="fa-ch"></i>
+
                             @foreach (Auth::User()->player->messages as $message)
                                 <tr>
                                     <td>{{ $message->from }}</td>
@@ -83,17 +84,20 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{ Auth::User()->player->messages }}
+{{--                        {{ Auth::User()->player->messages }}--}}
                     </div>
                 </div>
 
+        @else
+
+            <div class="alert alert-warning">
+                Your user isn't associated with an email in our records. You've probably signed up with a different
+                email than we know you by. Contact <a href="mailto:help@mail.wheatill.club">help@mail.wheatill.club</a> for more help
+            </div>
 
         @endif
-        
-        <div class="alert alert-warning">
-            Your user isn't associated with an email in our records. You've probably signed up with a different
-            email than in our records. Contact <a href="mailto:help@mail.wheatill.club">help@mail.wheatill.club</a> for more help
-        </div>
+
+
 
 
     </div>
