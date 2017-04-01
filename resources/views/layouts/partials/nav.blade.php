@@ -3,7 +3,7 @@
     @php($unread_message_count = 0)
 
     @foreach (auth()->user()->player->messages as $message)
-        @if (!$message->read)
+        @if ($message->read == 0)
             @php($unread_message_count++)
         @endif
     @endforeach
